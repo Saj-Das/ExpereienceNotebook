@@ -1,0 +1,59 @@
+
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Edit experience</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+              Delete this experience?
+          </ion-col>
+          <ion-col>
+              <ion-button color="light" full (click)="presentAlertConfirm()">Yes</ion-button>
+          </ion-col>
+         
+        </ion-row>
+        <ion-row>
+          <ion-col>
+              Set as current organisation?
+          </ion-col>
+          <ion-col>
+              <ion-toggle [(ngModel)]="isCurrent" (ngModelChange)="setCurrent($event)"></ion-toggle>
+          </ion-col>
+         
+        </ion-row>
+      </ion-grid>
+  <form >
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>From</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" name="from" [(ngModel)]="addPageData.from"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>To</ion-label>
+        <ion-datetime displayFormat="MMM DD YYYY" name="to" [(ngModel)]="addPageData.to"></ion-datetime>
+
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Description</ion-label>
+
+        <ion-textarea name="description" [(ngModel)]="addPageData.description" placeholder="Enter more information here..."></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Company Name</ion-label>
+        <ion-input type="text" name="companyName" [(ngModel)]="addPageData.companyName"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button color="primary" full (click)="editData(addPageData)">Edit</ion-button>
+
+  </form>
+</ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isVisible">
+    <ion-fab-button>
+      <ion-icon name="arrow-round-back" (click)="changePage()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

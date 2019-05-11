@@ -1,0 +1,87 @@
+
+<ng-container *ngIf="type=='list'">
+
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>
+        Experience Detail  {{test|json}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content padding>
+    {{test|json}}  {{test1}}
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Total Exp: {{texp}} 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card *ngFor="let c of companyDetailsList" (click)="viewpage(c)">
+      <ion-card-header>
+        <ion-card-title><label [ngClass]="setclass(c)">{{c.companyName}}</label></ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+
+        {{c.datediff.message}}
+        <br>
+        {{c.from}} to {{c.to}}
+
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isVisible">
+    <ion-fab-button>
+        <ion-icon (click)="exportToSql()" name="cloud-upload"></ion-icon>    
+    </ion-fab-button>
+    <ion-fab-button>
+        <ion-icon (click)="importToDb()" name="cloud-download"></ion-icon>    
+    </ion-fab-button>
+    <ion-fab-button (click)="changePage('add')">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="cvparse()">
+      <button >cv resume</button>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- <ion-button color="light" large full (click)="changePage('add')">Add new experience</ion-button> -->
+</ng-container>
+
+<ng-container *ngIf="type=='add'">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>Add experience</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content padding>
+    <form>
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>From</ion-label>
+          <ion-datetime displayFormat="MMM DD YYYY" name="from" [(ngModel)]="addPageData.from"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>To</ion-label>
+          <ion-datetime displayFormat="MMM DD YYYY" name="to" [(ngModel)]="addPageData.to"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Description</ion-label>
+          <ion-textarea name="description" [(ngModel)]="addPageData.description" placeholder="Enter more information here..."></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Company Name</ion-label>
+          <ion-input type="text" name="companyName" [(ngModel)]="addPageData.companyName"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button color="primary" full (click)="addData(addPageData)">Add</ion-button>
+    </form>
+
+  </ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-round-back" (click)="changePage('list')"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ng-container>
